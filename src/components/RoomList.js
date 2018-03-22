@@ -40,10 +40,10 @@ class RoomList extends Component {
           <li key={index}>{room.name}</li>
         )}
         </ul>
-      <form onSubmit={ (e) => {e.preventDefault(); this.createRoom(this.state.newRoomName) }}>
-        <input type="text" value={ this.state.newRoomName } onChange={ (e) => { this.handleChange(e) } } />
-        <input type="submit" value="New Room" />
-      </form>
+        <form onSubmit={ (e) => { e.preventDefault(); this.createRoom(this.state.newRoomName) } }>
+          <input type="text" value={ this.state.newRoomName } onChange={ (e) => { this.handleChange(e) } } name="newRoomName"/>
+          <input type="submit"  />
+        </form>
       </div>
     );
   }
