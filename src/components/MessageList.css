@@ -1,0 +1,5 @@
+h2  .room-name {
+  list-style-type: none;
+  text-transform: capitalize;
+  text-align: center;
+}

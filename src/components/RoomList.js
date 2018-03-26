@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import './RoomList.css'
 
 
 class RoomList extends Component {
@@ -14,18 +15,6 @@ class RoomList extends Component {
 
   }
 
-  createRoom(newRoomName) {
-    this.roomsRef.push({
-      name: newRoomName
-    });
-      this.setState({ newRoomName: ''});
-  }
-
-  handleChange(e) {
-    this.setState({ newRoomName: e.target.value });
-  }
-
-
   componentDidMount() {
     this.roomsRef.on('child_added', snapshot => {
       const room = snapshot.val();
@@ -34,20 +23,37 @@ class RoomList extends Component {
     });
   }
 
+
+  createRoom(newRoomName) {
+    this.roomsRef.push({
+      name: newRoomName,
+    });
+    this.setState({newRoomName:''});
+  }
+
+  handleChange(e) {
+    this.setState({ newRoomName: e.target.value });
+  }
+
+  selectRoom(room) {
+    this.setState({ activeRoom: room });
+  }
+
+
   render(){
     return (
-      <div className ="Room-list">
-        <ul>
-        {this.state.rooms.map((room, index) =>
-          <li key={index}>{room.name}</li>
-        )}
+      <section className ="sidenav">
+        <ul id="room-list">
+          {this.state.rooms.map( (room,index) => (
+            <li key={index} onClick={() => {this.props.setRoom(room)}}>{ room.name }</li>
+            ),
+          )}
         </ul>
-
-        <form onSubmit={ (e) => { e.preventDefault(); this.createRoom(this.state.newRoomName) }}>
-          <input type="text" value={ this.state.newRoomName } placeholder="Create a new room name" onChange= { (e) => this.handleChange(e) } />
-          <input type="submit" />
+        <form id="create-room" onSubmit={ (e) => { e.preventDefault(); this.createRoom(this.state.newRoomName) } }>
+          <input type="text" value={ this.state.newRoomName } placeholder="Create a new room" onChange={ this.handleChange.bind(this) } name="newRoomName"/>
+          <input type="submit" value ="Submit" />
         </form>
-      </div>
+      </section>
     );
   }
 }

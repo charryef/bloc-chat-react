@@ -1,0 +1,50 @@
+html {
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+  display: inline;
+}
+
+/*style the side navigation */
+.sidenav {
+  padding: 10px;
+  width: 250px;
+  height: 100%;
+  background-color: #607D8B;
+  overflow: hidden;
+  border-radius: 5px;
+  top: 0;
+  left: 0;
+  position: fixed;
+}
+
+#room-list {
+  list-style-type: none;
+  text-transform: capitalize;
+  text-align: center;
+  color: #FFFFFF;
+}
+
+#room-list li:hover {
+  background: #90a4ae;
+  color: #263238;
+  cursor: pointer;
+}
+
+#create-room input[type="submit"] {
+  background: transparent;
+  border: 2px solid #455a64;
+  height: 30px;
+  width: 70px;
+  font-size: 14px;
+  box-sizing: border-box;
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+#create-room input[type="submit"]:hover {
+  background: #90a4ae;
+  color: #FFFFFF;
+}

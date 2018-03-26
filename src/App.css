@@ -1,5 +1,15 @@
+body {
+  margin: 0;
+}
+
+
 .App {
   text-align: center;
+  background-color: #cfd8dc;
+  height: 100vh;
+  width: 100vw;
+  align-items: center;
+  justify-content: center;
 }
 
 .App-logo {
@@ -27,7 +37,10 @@
   to { transform: rotate(360deg); }
 }
 
-ul, li {
-  list-style-type: none;
-  text-transform: capitalize;
+h1 {
+  color: #37474f;
+  text-align: center;
+  text-shadow: 3px 2px #7986cb;
+  font-size: 50px;
+  display: inline;
 }
