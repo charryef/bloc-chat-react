@@ -25,8 +25,9 @@ class RoomList extends Component {
 
 
   createRoom(newRoomName) {
+    if (!this.state.newRoomName) {return}
     this.roomsRef.push({
-      name: newRoomName,
+      name: this.state.newRoomName,
     });
     this.setState({newRoomName:''});
   }

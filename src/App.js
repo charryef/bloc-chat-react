@@ -4,6 +4,7 @@ import * as firebase from 'firebase';
 import RoomList from './components/RoomList';
 import MessageList from './components/MessageList';
 
+//initialize Firebase
 var config = {
   apiKey: "AIzaSyD4DwGT9ZXyWK9gM9kd6HY2UT4mCxL4AR8",
   authDomain: "bloc-chat-1234f.firebaseapp.com",
@@ -20,7 +21,7 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      activeRoom: 'Mock Chat'
+      activeRoom: '',
     };
   }
 
