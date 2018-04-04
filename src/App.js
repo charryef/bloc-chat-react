@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import './App.css';
 import * as firebase from 'firebase';
-import RoomList from './components/RoomList';
-import MessageList from './components/MessageList';
+import RoomList from './components/RoomList.js';
+import MessageList from './components/MessageList.js';
+import User from './components/User.js'
 
 //initialize Firebase
 var config = {
@@ -16,18 +17,25 @@ var config = {
 
 firebase.initializeApp(config);
 
-//when activeRoom is hardcoded, it displays the messages.
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
       activeRoom: '',
+      user: null
     };
   }
 
-setRoom(room){
-  this.setState({ activeRoom: room });
-}
+  setRoom(room){
+    this.setState({ activeRoom: room });
+  }
+
+  //create a setUser method
+  setUser(user) {
+    this.setState({ user: user });
+  }
+
+
 
   render() {
     return (
@@ -38,6 +46,7 @@ setRoom(room){
         <main>
           <RoomList firebase={ firebase } activeRoom={this.state.activeRoom}  setRoom={this.setRoom.bind(this)}/>
           <MessageList firebase = { firebase } activeRoom={this.state.activeRoom} />
+          <User firebase={ firebase } setUser={this.setUser.bind(this)} user={this.state.user}/>
         </main>
       </div>
     );
