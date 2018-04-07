@@ -1,5 +1,32 @@
+
+
 h2.room-name {
   list-style-type: none;
-  text-transform: capitalize;
+  text-transform: none;
+  text-align: center;
+  float: left;
+  width: 50%;
+}
+
+#create-message {
+//  border-top: 2px solid hsla(44, 30%, 52%, 0.2);
+ bottom: 10px;
+ height: 20px;
+ padding: 20px;
+ position: fixed;
+ width: 50%;
+}
+
+#create-message input[type="text"] {
+  border-radius: 5px;
+  padding: 10px;
+}
+
+#create-message input[type="submit"]:hover {
+  cursor: pointer;
+}
+
+.message-list li{
+  list-style-type: none;
   text-align: center;
 }

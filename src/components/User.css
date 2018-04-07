@@ -1,13 +1,33 @@
+#user {
+  display:inline-block;
+  float: right;
+}
+
 .welcome {
   color: #757575;
-  margin-top: 10px;
-  padding: 10px 10px 10px 0;
+  margin: 10px 30px 5px 0;
+  padding: 10px 10px 0 0;
 }
 
 .sign-in-button {
   padding: 10px 10px 10px 10px;
+  float: none;
+}
+
+.sign-in-button:hover {
+  background: #90a4ae;
+  color: #FFFFFF;
+  cursor: pointer;
 }
 
 .sign-out-button {
-  padding: 10px 10px 10px 10px;
+  padding: 5px 5px 5px 5px;
+  border-radius: 5px;
+  float: none;
+}
+
+.sign-out-button:hover {
+  background: #90a4ae;
+  color: #FFFFFF;
+  cursor: pointer;
 }

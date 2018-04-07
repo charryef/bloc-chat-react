@@ -24,18 +24,19 @@ class RoomList extends Component {
 
 
   createRoom(newRoomName) {
-    if (!this.state.newRoomName) {return}
+    if (!this.props.user || !newRoomName) { return }
     this.roomsRef.push({
-      name: this.state.newRoomName,
+      name: newRoomName,
     });
     this.setState({newRoomName:''});
   }
 
   handleChange(e) {
+    e.preventDefault();
     this.setState({ newRoomName: e.target.value });
   }
 
-  selectRoom(room) {
+  setRoom(room) {
     this.setState({ activeRoom: room });
   }
 
@@ -43,16 +44,18 @@ class RoomList extends Component {
   render(){
     return (
       <section className ="sidenav">
-        <ul id="room-list">
+        <h1>Bloc Chat</h1>
+        <form id="create-room" onSubmit={ (e) => { e.preventDefault(); this.createRoom(this.state.newRoomName) } }>
+          <input type="text" value={ this.state.newRoomName } placeholder="Create a new room" onChange={ this.handleChange.bind(this) } name="newRoomName"/>
+          <input type="submit" value ="+" />
+        </form>
+        <ul className="room-list">
           {this.state.rooms.map( (room,index) => (
             <li key={index} onClick={() => {this.props.setRoom(room)}}>{ room.name }</li>
             ),
           )}
         </ul>
-        <form id="create-room" onSubmit={ (e) => { e.preventDefault(); this.createRoom(this.state.newRoomName) } }>
-          <input type="text" value={ this.state.newRoomName } placeholder="Create a new room" onChange={ this.handleChange.bind(this) } name="newRoomName"/>
-          <input type="submit" value ="Submit" />
-        </form>
+
       </section>
     );
   }

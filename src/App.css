@@ -4,6 +4,7 @@ body {
 
 
 .App {
+  border: 1px solid #cfd8dc;
   text-align: center;
   background-color: #cfd8dc;
   height: 100vh;
@@ -43,4 +44,8 @@ h1 {
   text-shadow: 3px 2px #7986cb;
   font-size: 50px;
   display: inline;
+}
+
+li {
+  list-style-type: none;
 }

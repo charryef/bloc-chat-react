@@ -16,7 +16,6 @@ class User extends Component {
     this.props.firebase.auth().signInWithPopup( provider );
   }
 
-
   signOut() {
     this.props.firebase.auth().signOut();
   }
@@ -24,7 +23,7 @@ class User extends Component {
   render (){
     return (
       <div id="user">
-        <h2 className="welcome">Welcome, { this.props.user ? this.props.user.displayName : 'guest' }!</h2>
+        <h3 className="welcome">Welcome, { this.props.user ? this.props.user.displayName : 'guest' }!</h3>
         {this.props.user ?
           <button className="sign-out-button" onClick={this.signOut.bind(this)}>Sign Out</button>
           :
