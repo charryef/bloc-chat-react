@@ -17,11 +17,25 @@ class MessageList extends Component {
     this.messagesRef = this.props.firebase.database().ref('messages');
   }
 
-
-
-
+  componentDidMount() {
+    this.messagesRef.on('child_added', snapshot => {
+      const message = snapshot.val();
+      console.log("Message:");
+      console.log(message);
+      message.key = snapshot.key;
+      this.setState({ messages: this.state.messages.concat( message )}, ()=>{
+        this.updateDisplayMessages( this.props.activeRoom )});
+        console.log(this.state.messages);
+    });
+    this.messagesRef.on('child_removed', snapshot => {
+      this.setState({ messages: this.state.messages.filter( message => message.key !== snapshot.key )}, () => {
+        this.updateDisplayMessages( this.props.activeRoom )
+      });
+    })
+  }
 
   componentWillReceiveProps(nextProps){
+    console.log("message")
     this.updateDisplayMessages(nextProps.activeRoom);
   }
 
@@ -44,29 +58,13 @@ class MessageList extends Component {
 
   updateDisplayMessages(activeRoom){
     if(!activeRoom) {return}
-    this.setState({ displayMessages: this.state.messages.filter(message => message.roomId.name  === this.props.activeRoom.name)})
+    this.setState({ displayMessages: this.state.messages.filter(message => message.roomId.name === activeRoom.name)})
   //  console.log(activeRoom)
   }
 
-  componentDidMount() {
-    this.messagesRef.on('child_added', snapshot => {
-      const message = snapshot.val();
-      message.key = snapshot.key;
-      this.setState({ messages: this.state.messages.concat( message )}, ()=>{
-        this.updateDisplayMessages( this.props.activeRoom )});
-        console.log(this.state.messages);
-    });
+  deleteMessage(room) {
+    this.messagesRef.child(room.key).remove();
   }
-/*  watchForNewMessages() {
-    this.messagesRef.on ( 'child_added', snapshot =>{
-      const message = Object.assign( snapshot.val(), { key: snapshot.key } )
-      this.setState( { messages: this.state.messages.concat( message ) }, () => {
-        this.updateDisplayMessages( this.props.activeRoom)
-    });
-    });
-  }*/
-
-
 
   render() {
     return (
@@ -74,11 +72,11 @@ class MessageList extends Component {
       <h2 className="room-name">{this.props.activeRoom ? this.props.activeRoom.name : ''}</h2>
       <ul className="message-list">
         {this.state.displayMessages.map( message =>
-
             <li key={message.key}>
             <div> {message.content} </div>
             <div> {message.username} </div>
             <div> {new Date(message.sentAt).toString()} </div>
+            <button className="delete-message" onClick={ () => this.deleteMessage(message)}>Delete</button>
             </li>
         )}
       </ul>
@@ -89,7 +87,6 @@ class MessageList extends Component {
       </main>
     );
   }
-
 }
 
 export default MessageList;

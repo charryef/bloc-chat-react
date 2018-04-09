@@ -20,13 +20,16 @@ class RoomList extends Component {
       room.key = snapshot.key;
       this.setState({ rooms: this.state.rooms.concat( room )});
     });
+    this.roomsRef.on('child_removed', snapshot => {
+      this.setState({ rooms: this.state.rooms.filter(room => room.key !== snapshot.key )})
+    });
   }
-
 
   createRoom(newRoomName) {
     if (!this.props.user || !newRoomName) { return }
     this.roomsRef.push({
       name: newRoomName,
+      creator: this.props.user.email
     });
     this.setState({newRoomName:''});
   }
@@ -40,6 +43,13 @@ class RoomList extends Component {
     this.setState({ activeRoom: room });
   }
 
+  removeRoom(room) {
+    console.log(room.creator);
+    console.log(this.props.user.email);
+    if(room.creator !== this.props.user.email ) { return }
+    this.roomsRef.child(room.key).remove();
+  }
+
 
   render(){
     return (
@@ -51,11 +61,10 @@ class RoomList extends Component {
         </form>
         <ul className="room-list">
           {this.state.rooms.map( (room,index) => (
-            <li key={index} onClick={() => {this.props.setRoom(room)}}>{ room.name }</li>
+            <li key={index} onClick={() => {this.props.setRoom(room)}}>{ room.name } <button className="delete-room" onClick={ () => this.removeRoom(room)}>Remove</button></li>
             ),
           )}
         </ul>
-
       </section>
     );
   }
